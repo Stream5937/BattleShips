@@ -1,0 +1,40 @@
+{
+    "name": "bs1",
+    "version": "1.0.0",
+    "description": "A battleship game project using Webpack, Jest, Babel, and ES6.",
+    "private": "true",
+    "main": "index.js",
+    "scripts": {
+        "build": "webpack",
+        "build-dev": "webpack --config webpack.config.dev.js",
+        "start": "webpack-dev-server --config=webpack.config.dev.js --open",
+        "test": "jest"
+    },
+    "keywords": [
+        "webpack"
+    ],
+    "author": "djh",
+    "license": "MIT",
+    "devDependencies": {
+        "babel-jest": "^29.7.0",
+        "css-minimizer-webpack-plugin": "^7.0.2",
+        "favicons": "^7.2.0",
+        "favicons-webpack-plugin": "^6.0.1",
+        "html-webpack-plugin": "^5.6.3",
+        "jest": "^29.7.0",
+        "webpack": "^5.98.0",
+        "webpack-cli": "^6.0.1"
+    },
+    "dependencies": {
+        "@babel/core": "^7.26.0",
+        "@babel/preset-env": "^7.26.0",
+        "babel-loader": "^9.1.2",
+        "clean-webpack-plugin": "^4.0.0",
+        "css-loader": "^6.11.0",
+        "html-webpack-plugin": "^5.5.3",
+        "mini-css-extract-plugin": "^2.9.2",
+        "style-loader": "^3.3.4",
+        "webpack-dev-server": "^5.2.0",
+        "webpack-merge": "^6.0.1"
+    }
+}
