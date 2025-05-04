@@ -186,7 +186,8 @@ const confirm1_btnListenerObj = {
             
             //update the board grid from the shipsData
           //  player_1.gridUpdate();
-            let setDiv = document.querySelector('.computerSet');
+          //  let setDiv = document.querySelector('.computerSet');
+            let setDiv = document.querySelector('.humanSet');
             setDiv.classList.remove('hidden');
 
             // ###############    MOVE TO ALL SHIPS PLACED BUTTON ??  as well ################

@@ -23,6 +23,7 @@ let col; //Math.floor(1+(Math.random() * 10));
 
 
 function compAttack(){
+    console.log('Computer attacking start');
     let attack = true;
     let count = 1000;
     let gameOver = false;
@@ -40,7 +41,7 @@ function compAttack(){
                 gameOver = player_0.gameBoard.receiveAttack(id);
                // if(gameOver){
                     console.log('returning gameOver: ',gameOver);
-                    return gameOver;    //here true
+                    return gameOver; 
                // }
             }
             if(count < 0 ) { attack = false;}
@@ -49,6 +50,7 @@ function compAttack(){
     if(count < 0){
         console.log('count < 0', count);
     }
+    console.log('Computer attacking end @count = 0');
     return gameOver; //here should be false
 }
 

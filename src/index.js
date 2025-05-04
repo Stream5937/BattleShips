@@ -27,7 +27,7 @@ const display = new Display(this);
 let GAMEOVER = false;
 //the set of player options
 //export let players  = {'self':false,'human':false, 'computer':false}; //either human or computer set true from splassh screen
-let players  = {'self':false,'human':false, 'computer':false}; //either human or computer set true from splassh screen
+let players  = {'self':false,'human':false, 'computer':false}; //either human or computer set true from splash screen
  
 let player_0 = {}; //self
 let player_1 = {}; //opponent 
@@ -126,12 +126,16 @@ function playerSelected(){
   //monitor both boards for mouse down
   if(!GAMEOVER){
    GAMEOVER = display.doc.monitorBoard(currentBoard);
+   console.log('returned at GAMEOVER (player_0)', GAMEOVER);
   }
   if(!GAMEOVER){
     GAMEOVER =display.doc.monitorBoard(opponentBoard);
+    console.log('returned at GAMEOVER (player_1)', GAMEOVER);
   }
   if(GAMEOVER){
-    console.log('Finished!');
+    console.log('Finishe true? ',GAMEOVER);
+  }else{
+    console.log('Finished false? ',GAMEOVER);
   }
 
 //on click check if grid id content is 0 else must be ship
@@ -162,6 +166,12 @@ function playerSelected(){
 function setActivePlayer(player) {
   if(!(player === null )) {
     attackingPlayer = player;
+    if(player.name === 'self'){
+      display.doc.monitorBoard(player_1.gameBoard);
+    }
+    if(player.name === 'human'){
+      display.doc.monitorBoard(player_0.gameBoard);
+    }
   }
 }
 

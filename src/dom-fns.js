@@ -1,6 +1,6 @@
 //dom-fns.js
 
-import {players,player_0, player_1} from './index.js';
+import {players,player_0, player_1, attackingPlayer} from './index.js';
 import {compAttack} from './computer.js';
 
 
@@ -196,99 +196,105 @@ export class Dom_fns {
     
     //monitorBoard for mouse action
     monitorBoard(board){
+
         console.log('player / monitoring: ', board.id );
         let sketch = board.getSketch();
         let enableHighlight;
         let boardStatus = board.status;
         let gameOver = false;
        
-        sketch.onmousedown = (event) =>{
-            //get the current board status
-            boardStatus = board.getBoardStatus();
-           // enableHighlight = enableHighlight ? false : true;
-           console.log('board status: ', boardStatus);
-           let e = event.target.closest('div');
-           const cell = document.getElementById(e.id);
-           console.log('@ cell,: ',cell,' e.id : ',e.id);
+       // while(!(attackingPlayer === 'computer' )) {
+            sketch.onmousedown = (event) =>{
+                //get the current board status
+                boardStatus = board.getBoardStatus();
+            // enableHighlight = enableHighlight ? false : true;
+            console.log('board status: ', boardStatus);
+            let e = event.target.closest('div');
+            const cell = document.getElementById(e.id);
+            console.log('@ cell,: ',cell,' e.id : ',e.id);
 
-           switch (boardStatus) {
-                //on mouse down print out cell id number to cll
-                case 'preset': {
-                    console.log('at preset');
-                    const text = document.createTextNode(obj.toString());
-                    cell.appendChild(text);
-                    break;
-                }
-                //on mouse down print out selected ship to cell
-                case 'place': {
-                    console.log('placing');
-                    board.placeShip(e);
-                    
-                    break;
-                }//place
-/*
-                //react to mouse action for live game 
-                case  'live' : {
-                    console.log('receive attack')
-                    board.receiveAttack(e);
-                    break;
-                }
-*/
-                //board is currently attacking opponent
-                case 'attack': {
-                    console.log('board.name currently attacking is: ', board.id);
-                    gameOver = compAttack();
-                    if(gameOver){
-                        console.log('returning gameOver: ',gameOver);
-
-                        return true;
+            switch (boardStatus) {
+                    //on mouse down print out cell id number to cll
+                    case 'preset': {
+                        console.log('at preset');
+                        const text = document.createTextNode(obj.toString());
+                        cell.appendChild(text);
+                        break;
                     }
-                   // board.missedAttack(e.id);
-                    break;
-                }
+                    //on mouse down print out selected ship to cell
+                    case 'place': {
+                        console.log('placing');
+                        board.placeShip(e);
+                        
+                        break;
+                    }//place
+    
+                    //react to mouse action for TEST ONLY 
+                    case  'TEST' : {
+                        console.log('TESTING')
+                        board.receiveTEST(e);
+                        break;
+                    }
+    
+                    //board is currently attacking opponent
+                    case 'attack': {
+                        console.log('board.name currently attacking is: ', board.id);
+                        if(board.id === 'computer'){
+                            gameOver = compAttack();
+                            if(gameOver){
+                                console.log('returning gameOver: ',gameOver);
 
-                //board is currently under fire from opponent
-                case 'underFire': {
-                    console.log('board.name currently under fire is: ', board.id);
-                    gameOver = board.receiveAttack(e.id);
-                    if(gameOver){console.log('returning gameOver: ',gameOver);return true;}
-                    break;
-                }
-                //react to mouse action once game over
-                case 'win':
-                case 'loose':
-                case 'dead': {
-                    console.log('dying');
-                    gameOver = true;
-                    break;
-                }
+                                return true;
+                            }
+                        }
+                    // board.missedAttack(e.id);
+                        break;
+                    }
 
-                //on mouse down do nothing
-                      default:
-                case 'random':{
-                    console.log('default / random');
-                    //################################
-                    break;
-                }
-            }   //switch boardStatus
+                    //board is currently under fire from opponent
+                    case 'underFire': {
+                        console.log('board.name currently under fire is: ', board.id);
+                        gameOver = board.receiveAttack(e.id);
+                        if(gameOver){console.log('returning gameOver: ',gameOver);return true;}
+                        break;
+                    }
+                    //react to mouse action once game over
+                    case 'win':
+                    case 'loose':
+                    case 'dead': {
+                        console.log('dying');
+                        gameOver = true;
+                        break;
+                    }
 
-            let done = board.checkBoardsShipsPlaced();
-            console.log('done: ', done);
-            if (done === 5) {
-                let doneBtn;
-                if(board.id === 'self'){
-                    doneBtn = document.querySelector('.donePlacing0'); 
-                }else{
-                    doneBtn = document.querySelector('.donePlacing1'); 
+                    //on mouse down do nothing
+                        default:
+                    case 'random':{
+                        console.log('default / random');
+                        //################################
+                        break;
+                    }
+                }   //switch boardStatus
+
+                let done = board.checkBoardsShipsPlaced();
+                console.log('done: ', done);
+                if (done === 5) {
+                    let doneBtn;
+                    if(board.id === 'self'){
+                        doneBtn = document.querySelector('.donePlacing0'); 
+                    }else{
+                        doneBtn = document.querySelector('.donePlacing1'); 
+                    }
+                    doneBtn.classList.remove('hidden');
+                    console.log('done actioned');
                 }
-                doneBtn.classList.remove('hidden');
-                console.log('done actioned');
-            }
-        }   //onmousedown
+            }   //onmousedown
+      //  }//while
         if(gameOver){
             console.log('at mouseDown-returning gameOver: ',gameOver)
             return gameOver;
         }
+
     }//monitor board
 
     monitorShipPlacement (player) {

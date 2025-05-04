@@ -7,7 +7,7 @@ Gameboards should keep track of missed attacks so they can display them properly
 Gameboards should be able to report whether or not all of their ships have been sunk.
 */
 
-import {display,players, player_0, player_1} from './index.js';
+import {display,players, player_0, player_1,setActivePlayer,attackingPlayer} from './index.js';
 import {Ship} from './ship.js';
 import {compAttack } from './computer.js';
 
@@ -863,22 +863,44 @@ class GameBoard {
             //proclaim winner
            // if(this.board === 'self'){ this.setBoardStatus('win');player_1.board.setBoardStatus('lose');console.log('You win');}
           //  else{ this.setBoardStatus('lose');player_1.board.setBoardStatus('win');console.log('Opponent wins!');}
-          if(this.board === 'self'){ this.setBoardStatus('lose');player_1.board.setBoardStatus('win');console.log('Opponenet wins!');}
-            else{ this.setBoardStatus('lose');player_0.board.setBoardStatus('win');console.log('You Win!');}
-            //end game
-            console.log('Game Over !')
-            console.log('this board: ', this.board,' this board status: ',this.getBoardStatus);
+
+          if(this.board === 'self'){ 
+            this.setBoardStatus('lose');
+            player_1.board.setBoardStatus('win');
+            console.log('Opponenet wins!');
+            console.log('displaying game over winner')
             //display game over screen
-            if(this.status === 'lose'){
-                console.log('displaying game over self win');
-                display.doc.showGameOver('self');
-            }else{
-                if(this.status === 'win'){
+     //       if(this.status === 'lose'){
+     //           console.log('displaying game over self win');
+      //          display.doc.showGameOver('self');
+      //      }else{
+      //          if(this.status === 'win'){
                     console.log('displaying game over oppo win');
                     display.doc.showGameOver('oppo');
-                }
-                console.log('displaying game over winner')
-            }
+      //          }
+       //         console.log('displaying game over winner')
+      //      }
+          }
+          else{ 
+            this.setBoardStatus('lose');
+            player_0.board.setBoardStatus('win');
+            console.log('You Win!');
+            //display game over screen
+    //        if(this.status === 'lose'){
+                console.log('displaying game over self win');
+                display.doc.showGameOver('self');
+    //        }else{
+    //            if(this.status === 'win'){
+    //                console.log('displaying game over oppo win');
+    //                display.doc.showGameOver('oppo');
+    //            }
+    //            console.log('displaying game over winner')
+    //        }
+          }
+            //end game
+            console.log('Game Over !')
+            console.log('this board: ', this.board,' this board status: ',this.getBoardStatus());
+            
             //exit function
             gameOver =  true;
         }
@@ -886,7 +908,19 @@ class GameBoard {
         if(aHit){
             //keep attacking
             aHit = false;
-            console.log('ahit so attacking again');
+            console.log('a hit so attacking again');
+            console.log('Active player:',attackingPlayer);
+            if(attackingPlayer === player_1 ){
+                //if player_1 is computer
+                if(players.computer){
+                    console.log('calling computer attack function');
+                    gameOver = compAttack();
+                }else{
+                    console.log('awaiting human opponents attack');
+                }
+             }else{
+                console.log('awaiting self to attack');
+             }
     
         }else{
             //change attacker
@@ -895,13 +929,17 @@ class GameBoard {
                 if(this.status === 'underFire'){ 
                     this.status = 'attack';
                     player_1.gameBoard.status = 'underFire';
+                    setActivePlayer(player_0);
                 }
             }else{
                 //must be monitoring player_1 under fire
                 if(this.status === 'underFire'){ 
                     this.status = 'attack';
                     player_0.gameBoard.status = 'underFire';
-                    console.log('players.computer): ', players.computer);
+                    setActivePlayer(player_1);
+                    console.log('players.computer: ', players.computer);
+                    console.log('Active player:',attackingPlayer);
+                    //if player_1 is computer
                     if(players.computer){
                         console.log('calling computer attack function');
                         gameOver = compAttack();
@@ -919,7 +957,7 @@ class GameBoard {
             let col;
             let gameOver = false;
             id = Number(id);
-            console.log('id, ', id);
+            console.log('missed at id, ', id);
             if(id > 120){
                 id = id-121;
                 row = Math.floor(id/11);
@@ -938,7 +976,7 @@ class GameBoard {
                 if(player_0.gameBoard.missed[row][col]=== 0){
                     player_0.gameBoard.missed[row][col]= 'X';
                     console.log('content of grid[row][col]: ', this.grid[row][col]);
-                    console.log('id, ', id);
+                    console.log('showing x @ player_1 id, ', id);
                     display.doc.showMissed(id);
                 }
             }
@@ -949,6 +987,7 @@ class GameBoard {
            // display.doc.showMissed(id);
             //
             //change attacker
+            console.log('changing attacker from current:');
             console.log('board/id: ',this.board, ' status: ', this.status);
 
              if(this.board === 'self'){ 
@@ -956,24 +995,42 @@ class GameBoard {
                 if(this.status === 'underFire'){ 
                     this.status = 'attack';
                     player_1.gameBoard.status = 'underFire';
+                    setActivePlayer(player_0);
                     console.log('players.self attacking: ', players.self);
+                    console.log('players array: ', players);
                    // gameOver = player_1.gameBoard.receiveAttack();
-                   // if(gameOver){console.log('returning gameOver: ',gameOver);return true;}
+                    console.log('awaiting player_0 attack');
+                    display.doc.monitorBoard(player_1.gameBoard);
+                    /*
+                    if(gameOver){
+                        console.log('returning gameOver: ',gameOver);
+                        return true;
+                    }
+                    */    
                 }
             }else{
                 //must be monitoring player_1 under fire
                 if(this.status === 'underFire'){ 
                     this.status = 'attack';
+                    setActivePlayer(player_1);
                     player_0.gameBoard.status = 'underFire';
-                    console.log('players.computer attacking: ', players.computer);
+                    console.log('player_1 attacking: ', players.computer);
                     if(players.computer){
                         console.log('calling computer attack function');
                         gameOver = compAttack();
                         if(gameOver){console.log('returning gameOver: ',gameOver);return true;}
+                    }else{
+                        console.log('awaiting human opponents attack');
                     }
                 }
             }
             return false; //game not over
+     }
+
+     //receiveTEST
+     receiveTEST(id){
+        console.log('receive attack id: ',id);
+
      }
 
 }
