@@ -4,10 +4,11 @@
     "description": "A battleship game project using Webpack, Jest, Babel, and ES6.",
     "private": "true",
     "main": "index.js",
+    "type": "module",
     "scripts": {
         "build": "webpack",
-        "build-dev": "webpack --config webpack.config.dev.js",
-        "start": "webpack-dev-server --config=webpack.config.dev.js --open",
+        "build-dev": "webpack --config webpack.config.dev.cjs",
+        "start": "webpack-dev-server --config=webpack.config.dev.cjs --open",
         "test": "jest"
     },
     "keywords": [

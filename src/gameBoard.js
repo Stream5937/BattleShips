@@ -12,6 +12,7 @@ import {Ship} from './ship.js';
 import {compAttack } from './computer.js';
 
 class GameBoard {
+    
 
     constructor (boardData) {
         //cater for incorrect invocation i.e not using 'new' keyword
@@ -25,7 +26,6 @@ class GameBoard {
             this.board = boardData.id;      //which to keep
             this.id = boardData.id;         //which to keep
             this.status = boardData.status;       // setup / place / random / attack/ underFire / win /lose  
-           // this.grid = this.initialiseBoardGrid(boardData.ships);
             this.grid = [];
             this.missed = [];
             this._placeShip = [0,0,0,0,0];      //placing ship 0 = false , 1 = true , -1 = done , -2 = no access
@@ -59,7 +59,7 @@ class GameBoard {
     }
 
     setBoardStatus(status) {
-        console.log('status: ',status);
+        //console.log('status: ',status);
         switch(status){
             //valid
             case 'setup':
@@ -78,7 +78,7 @@ class GameBoard {
                 break;
             }
         }//switch
-        console.log('board status set: ', this.status);
+        //console.log('board status set: ', this.status);
     }//set
 
     //placing which ship?
@@ -111,35 +111,27 @@ class GameBoard {
     placeShip (e) {
         let row;
         let col;
-       
-        // let placeShip = this._placeShip;
         let placeShip = this.getPlaceShip();
         let ship = this.getShipToPlace();
         let error = false;
-/* corrected 13/04/25
-        row= Math.floor((e.id-1)/10);      //caters for start numbering from 0 for grid references
-        col = e.id % 10;
-*/
         
         row = Math.floor(e.id/11);      //eg [row 2 col 9] e.id = (j=2)*11 + (i=9 ) = 31 row = 2
         if(e.id > 120) { row = row - 11;}   //caters for board_1 player_1
         col = e.id % 11;                // 31 % 11 = 31-22 = 9  col = 9
 
-       // if(col === 0) {col = 10;}           //caters for start numbering from 0 for grid references
-        console.log('e.id: ', e.id, ' row: ',row,' col: ',col);
+        // console.log('e.id: ', e.id, ' row: ',row,' col: ',col);
 
-        console.log(ship);
-        console.log('at place ships');
+        // console.log(ship);
+        // console.log('at place ships');
         //if currently no ship
-        console.log('grid: ',this.grid );
-       // console.log('grid[row][col]: ',this.grid[row][col] );
+        //console.log('grid: ',this.grid );
+        // console.log('grid[row][col]: ',this.grid[row][col] );
         if(this.grid[row][col] === 0) {
             const cell = document.getElementById(e.id);
             const text = document.createTextNode(this.getShipToPlace());
-            console.log('*text', text);
+            //console.log('*text', text);
 
             switch (ship) {
-                
                 case 'C':
                 {   
                     //check not yet placed i.e.> -1                         
@@ -152,10 +144,9 @@ class GameBoard {
                         if(placeShip[0] > 0){  
                             //not yet reached ship length     
                             if((this.carrierCount--) > 0){
-                                console.log('placeShip: ',placeShip,' carrierCount ',this.carrierCount);
-
+                                //console.log('placeShip: ',placeShip,' carrierCount ',this.carrierCount);
                                 cell.appendChild(text);
-                                console.log('text', text);
+                                //console.log('text', text);
                                 this.grid[row][col]=text;
                                 this.carrierLocale.push([row,col]);
                             }else{error = true;}
@@ -175,9 +166,9 @@ class GameBoard {
                                     orientation = 'V';
                                 }
                                 shipData.location = [origin[0], origin[1], orientation];
-                                console.log('Carrier shipData: ',shipData);
+                                //console.log('Carrier shipData: ',shipData);
                                 this._ships[0] = new Ship(shipData);
-                                console.log('carrier: ',this._ships[0]);
+                                //console.log('carrier: ',this._ships[0]);
                                 placeShip[0]= -1;   //completed flagged to local array
                                 placeShip[1] =  placeShip[2] = placeShip[3] = placeShip[4] = 0; //clear to set
                             }
@@ -192,7 +183,7 @@ class GameBoard {
                         if(placeShip[1] > 0){       //currently active so complete
                             if(this.battleshipCount-- > 0){
                                 cell.appendChild(text);
-                                console.log('text', text);
+                                //console.log('text', text);
                                 this.grid[row][col]=text;
                                 this.battleshipLocale.push([row,col]);
                             }else{error = true;}
@@ -213,9 +204,9 @@ class GameBoard {
                                     orientation = 'V';
                                 }
                                 shipData.location = [origin[0], origin[1], orientation];
-                                console.log('Battleship shipData: ',shipData);
+                                //console.log('Battleship shipData: ',shipData);
                                 this._ships[1] = new Ship(shipData);
-                                console.log('battleship: ',this._ships[1]);
+                                //console.log('battleship: ',this._ships[1]);
 
                                 placeShip[1]= -1;   //completed flagged to local array
                                 placeShip[2] = placeShip[3] = placeShip[4] = 0; //clear to set
@@ -231,7 +222,7 @@ class GameBoard {
                         if(placeShip[2] > 0){       //currently active so complete
                             if(this.cruiserCount-- > 0){
                                 cell.appendChild(text);
-                                console.log('text', text);
+                                //console.log('text', text);
                                 this.grid[row][col]=text;
                                 this.cruiserLocale.push([row,col]);
                             }else{error = true;}
@@ -252,9 +243,9 @@ class GameBoard {
                                     orientation = 'V';
                                 }
                                 shipData.location = [origin[0], origin[1], orientation];
-                                console.log('cruiser shipData: ',shipData);
+                                //console.log('cruiser shipData: ',shipData);
                                 this._ships[2] = new Ship(shipData);
-                                console.log('cruiser: ',this._ships[2]);
+                                //console.log('cruiser: ',this._ships[2]);
 
                                 placeShip[2]= -1;   //completed flagged to local array
                                 placeShip[3] = placeShip[4] = 0; //clear to set
@@ -271,7 +262,7 @@ class GameBoard {
                         if(placeShip[3] > 0){       //currently active so complete
                             if(this.submarineCount-- > 0){
                                 cell.appendChild(text);
-                                console.log('text', text);
+                                //console.log('text', text);
                                 this.grid[row][col]=text;
                                 this.submarineLocale.push([row,col]);
                             }else{error = true;}
@@ -292,9 +283,9 @@ class GameBoard {
                                     orientation = 'V';
                                 }
                                 shipData.location = [origin[0], origin[1], orientation];
-                                console.log('submarine shipData: ',shipData);
+                                //console.log('submarine shipData: ',shipData);
                                 this._ships[3] = new Ship(shipData);
-                                console.log('submarine: ',this._ships[3]);
+                                //console.log('submarine: ',this._ships[3]);
 
                                 placeShip[3]= -1;   //completed flagged to local array
                                 placeShip[4] = 0;   //clear to set
@@ -309,7 +300,7 @@ class GameBoard {
                         if(placeShip[4] > 0){       //currently active so complete
                             if(this.destroyerCount-- > 0){
                                 cell.appendChild(text);
-                                console.log('text', text);
+                                //console.log('text', text);
                                 this.grid[row][col]=text;
                                 this.destroyerLocale.push([row,col]);
                             }else{error = true;}
@@ -317,7 +308,7 @@ class GameBoard {
                                 this.setShipsPlaced(4);     //flag destroyer position set
 
                                 //create the ship data
-                                let shipData = {'type':'destroyer', 'location':[],'length': 3 };
+                                let shipData = {'type':'destroyer', 'location':[],'length': 2 };
                                 let orientation;
                                 //is it placed horizontal or vertical
                                 const locale = this.destroyerLocale;
@@ -330,9 +321,9 @@ class GameBoard {
                                     orientation = 'V';
                                 }
                                 shipData.location = [origin[0], origin[1], orientation];
-                                console.log('destroyer shipData: ',shipData);
+                                //console.log('destroyer shipData: ',shipData);
                                 this._ships[4] = new Ship(shipData);
-                                console.log('destroyer: ',this._ships[4]);
+                                //console.log('destroyer: ',this._ships[4]);
 
                                 placeShip[4]= -1;   //completed flagged to local array
                             }
@@ -341,8 +332,7 @@ class GameBoard {
                     break;
                 }
             }// switch ship
-            //update this._placeShip
-            //this._placeShip = placeShip; 
+            //update this._placeShip 
             this.setPlaceShip(placeShip);
 
         }else{error = true;}
@@ -398,8 +388,6 @@ class GameBoard {
             };
 
             this.createShips(shipsData);
-            
-            // console.log('set random *shipsData*: ', shipsData);
             return shipsData;
     }     
 
@@ -423,28 +411,16 @@ class GameBoard {
         while(!built){
             while(tempCounter < 40) {
             //select random cell to start
-        //* CORRECTED 13/04/25
             row = Math.floor(1+(Math.random() * (10-(n))));
             col = Math.floor(1+(Math.random() * (10-(n))));
-        
-          //  row = Math.floor(1+(Math.random() * (11-(n))));
-           // col = Math.floor(1+(Math.random() * (11-(n))));
-
             startRow = row;
             startCol = col;
-            /*
-            console.log('start row: ', startRow, 'start col: ',startCol);
-            console.log('start row+n: ', startRow+n, 'start col+n: ',startCol+n);
-            console.log('row: ', row, ' col: ',col);
-            */
+
             //check if can build horizontally or vertically from here
             if (grid[row][col] === 0){
                 count = 0;
                 //try to build horizotally
-                // while(cellsClear){    
-                //console.log('checking H');
                 while(count < n){
-                    //console.log('count: ',n,' row: ', row, ' col: ',col);
                     if(grid[row][col++] === 0){
                         count++ ;
                     }
@@ -452,26 +428,21 @@ class GameBoard {
                         cellsClear = false;
                         count = 10;
                         canBuild_H = false;
-                        //console.log('H false');
                     }
-                    //console.log('checking H count is ',count);
                     if(count === n){
                         canBuild_H=true;
                         count = 10;
                     }
-                    //console.log('H success');
                 }
                 //check both H & V
                 //reset
                 cellsClear = true;
                 count = 0;
                 //try to build vertically
-                //console.log('checking V');
                 //reset row col to start row col
                 row = startRow;
                 col = startCol;
                 while(count <= n){
-                // console.log('count: ',n,' row: ', row, ' col: ',col);
                     if(grid[row++][col] === 0){
                         count++ ;
                     }
@@ -479,25 +450,19 @@ class GameBoard {
                         cellsClear = false;
                         count = 10;
                         canBuild_V = false;
-                        //console.log('V false');
-                    } 
-                    // console.log('checking V count is ',count); 
+                    }
                     if(count === n){
                         canBuild_V = true;
                         count = 10;
-                    } 
-                    //console.log('V success');
+                    }
                 }
             }
             else{
-            // console.log('cell not 0, is: ',grid[row][col]);
                 canBuild_H = false;
                 canBuild_V = false;
                 cellsClear = true;
                 built = false;
-                //count = 0;
             }
-            //console.log('can H: ', canBuild_H, ' can V: ', canBuild_V, ' built : ',built);
             if(canBuild_H || canBuild_V){
                 if(canBuild_H && canBuild_V) {
                     //select which
@@ -509,7 +474,6 @@ class GameBoard {
                                 grid[startRow][startCol+i] = s;
                             }
                             built = true;
-                            //console.log('from both choosing H');
                             shipLocation[0] = startRow;
                             shipLocation[1] = startCol;
                             shipLocation[2] = 'H';
@@ -521,7 +485,6 @@ class GameBoard {
                                 grid[startRow+i][startCol] = s;
                             }
                             built = true;
-                            //console.log('from both choosing V');
                             shipLocation[0] = startRow;
                             shipLocation[1] = startCol;
                             shipLocation[2] = 'V';
@@ -535,7 +498,6 @@ class GameBoard {
                             grid[startRow][startCol+i] = s;
                         }
                         built = true;
-                        //console.log('choosing H');
                         shipLocation[0] = startRow;
                         shipLocation[1] = startCol;
                         shipLocation[2] = 'H';
@@ -546,7 +508,6 @@ class GameBoard {
                                 grid[startRow+i][startCol] = s; 
                             }
                             built = true;
-                            //console.log('choosing V');
                             shipLocation[0] = startRow;
                             shipLocation[1] = startCol;
                             shipLocation[2] = 'V';
@@ -557,7 +518,6 @@ class GameBoard {
             if(built === true){
                 tempCounter = 100;
             }
-            console.log('tmp count: ', tempCounter++, ' built: ',built);
         }//tempCounter
         }//while not built
         //done built
@@ -566,6 +526,7 @@ class GameBoard {
     }//setRnd()
 
     setBoardGrid(ships) {
+        console.log('setBoardGrid() called, id: ', this.id);
         //within 11 x 11 grid of which 1-> 10 active
         let grid = [];
         let rows = 11;
@@ -583,88 +544,59 @@ class GameBoard {
         //let  shipType = ['carrier', 'battleship', 'cruiser', 'submarine', 'destroyer' ];
         let  shipStr = ['C', 'b', 'c', 's', 'd'];
 
-       // console.log('creating grid entries: ', numShips, shipType, shipStr);
-
         for( let n=0; n < numShips; n++ ){
 
-           // console.log('n is : ',n);
-
             let id = shipStr[n];
-            /*
-            console.log('id: ',id);
-            console.log('ships.carrier: ',ships.carrier);
-            console.log(`keys[${n}]: `, Object.keys(ships)[n]);
-            console.log(`values[${n}]: `, Object.values(ships)[n]);
-            */
-           // console.log('ships.shipType[0]: ', ships.shipType[0]);
-           // console.log('ships.ship: ',ships.ship);
             let arr = Object.values(ships)[n].location;
-            //console.log('arr: ', arr);
             let row = arr[0];
             let col = arr[1];
             let orientation = arr[2];
             let len = Object.values(ships)[n].length;
-            /*
-            console.log('len: ',len);
-            console.log(`creating grid entries for ${ship} n= ${n}`);
-            console.log('row: ',row, ' col: ',col);
-            */
-            // let orientation = Object.values(ships)[n].orientation;
-            //see arr above let orientation = Object.values(ships)[n].location[2];
-            //console.log('orientation: ',orientation);
+            console.log('n length: ',n,' ',len);
+            let gridID;
 
             //horizontal
             if(orientation === 'H') {
                 for(let j=0; j< len; j++) {
                     grid[row][col+j] = id;
-                   // console.log(`id: ${id} `);
+                    gridID = ((row*11)+(col+j));
+                    if(this.board === 'self'){
+                        display.doc.addShipClass(gridID);
+                    }
                 }
             }else {
             //vertical
                 for(let j=0; j< len; j++) {
-                    //console.log('row+j: ',row+j,' col: ', col, 'grid: ',grid[row+j][col]);
+                    console.log('j: ', j, ' row: ',row,' col: ',col);
                     grid[row+j][col] = id;
-                   // console.log(`id: ${id} `);
+                    gridID = (((row+j)*11)+(col));
+                    if(this.board === 'self'){
+                        display.doc.addShipClass(gridID);
+                    }
                 }
             }
               
         }
-
-        //print grid
-        //print each ACTIVE cell  i.e. excludes i or j == 0
-        console.log('printing grid: \n ', grid);
         this.grid = grid;
-        //return grid;
     }
 
     //render gameBoard
     renderGameBoardContent() {     
-       // console.log('rendering board ', this.board, ' content with grid: ',this.grid);
         let id;
         for(let i =1; i<11; i++){
             for(let j=1; j<11; j++){
                if(this.board === 'self'){
-                //console.log('self');
-                //CORRECTED 13/04/25
-                 //    id = ((i)*10)+j;
                      id = ((i)* 11) +j;
                      const content = this.grid[i][j];
                      display.doc.renderCellContent( id, content);
                }else{
-               // console.log('player 1: ',this.board);
-                //corrected 13/04/25
-                //     id = ((i)*10)+j+111;
-                //console.log('i: ',i,' j: ',j, ' id: ',id);
-                     id = ((i)* 11) +j + 120;    //0 -> 120 for board 1 
-                    // console.log('i: ',i,' j: ',j, ' id: ',id);
-                     //const content = this.grid[i][j];
-                     //display.doc.renderCellContent( id, content);
+                     id = ((i)* 11) +j + 121;    //0 -> 120 for board 1 
+                     const content = this.grid[i][j];
+                     display.doc.renderCellContent( id, content);
                      //board 1 so hide cell content for now
-                    // display.doc.hideCellContent(id);
+                     display.doc.hideCellContent(id);
+                     //display.doc.hideGridContent('computer');
                }
-                //const content = this.grid[i][j];
-                //display.doc.renderCellContent( id, content);
-               // console.log('cell id: ',id ,' content: ',content);
             }
         }
     }
@@ -683,7 +615,6 @@ class GameBoard {
                 this.missed[i][j] = 0; 
             } 
         }
-        console.log('Grid & missed set');
     }
    
     //get sketch
@@ -699,7 +630,7 @@ class GameBoard {
             let ship = null; 
             ship = new Ship(data[key]);
             this._ships[count++] = ship;
-            console.log(`ship[${oldCount++}]:  ${key}: ${JSON.stringify(ship)}`); 
+            //console.log(`ship[${oldCount++}]:  ${key}: ${JSON.stringify(ship)}`); 
         });
    }
 
@@ -712,7 +643,6 @@ class GameBoard {
             //find lowest values 
             if((row < origin[0]) || (col < origin[1])) { origin = item;}
         });
-        console.log('origin: ',origin);
         return origin;
    }
 
@@ -723,16 +653,14 @@ class GameBoard {
         let row;
         locale.forEach(item =>{
             row = item[0];
-        if(row === origin[0]){horizontal = true;}else{horizontal = false;} 
+            if(row === origin[0]){horizontal = true;}else{horizontal = false;} 
         });
-        console.log('horiz: ', horizontal);
         return horizontal;
    }
 
     //check ships placed
     checkBoardsShipsPlaced (){
         let arr =  this.getShipsPlaced(); 
-        console.log('arr: ',arr);
         let sum = 0;
         arr.map(e => sum += e);
         if(sum === 5){
@@ -744,25 +672,26 @@ class GameBoard {
 
      //receiveAttack
      receiveAttack (id) {
-        console.log('receive attack id: ',id);
+        console.log('id: ', id);
         let gameOver = false;
         let aHit = false;
         let shipSank = false;
         let gridID = id;
         if(gridID > 120){gridID = id-121;}
-        console.log('gridID: ',gridID);
+        //console.log('gridID: ',gridID);
         const row = Math.floor( gridID/11);
-        console.log('row: ', row);
+        //console.log('row: ', row);
         const col = gridID % 11;
-        console.log('col: ', col);
+        //console.log('col: ', col);
         const pos = [row,col];
+        console.log('pos: ',pos);
         const content = this.grid[row][col];
         console.log('content of grid[row][col]: ', content, ' pos: ',pos);
         if(!(content === 0)){
             switch (content) {
                 case 'C' : {
                         if(this.Hits[0] === 0){
-                            console.log('at C ');
+                            //console.log('at C ');
                             aHit =  this._ships[0].hit(pos);
                             console.log('aHit: ',aHit);
                             if(aHit){
@@ -779,10 +708,11 @@ class GameBoard {
                     }
                 case 'b' : {
                         if(this.Hits[1] === 0){
-                        console.log('at b ');
+                        //console.log('at b ');
                             aHit =  this._ships[1].hit(pos);
                             console.log('aHit: ',aHit);
                             if(aHit){
+                                console.log('hit at id: ',id);
                                 display.doc.showHit(this._ships[1],id);
                                 shipSank = this._ships[1].isSunk();
                                 console.log('ship: b sunk?: ', shipSank);
@@ -796,7 +726,7 @@ class GameBoard {
                     }
                 case 'c' : {
                         if(this.Hits[2] === 0){
-                        console.log('at c ');
+                        //console.log('at c ');
                             aHit =  this._ships[2].hit(pos);
                             console.log('aHit: ',aHit);
                             if(aHit){
@@ -813,7 +743,7 @@ class GameBoard {
                     }
                 case 's' : {
                         if(this.Hits[3] === 0){
-                            console.log('at s ');
+                            //console.log('at s ');
                             aHit =  this._ships[3].hit(pos);
                             console.log('aHit: ',aHit);
                             if(aHit){
@@ -830,7 +760,7 @@ class GameBoard {
                     }
                 case 'd' : {
                         if(this.Hits[4] === 0){
-                            console.log('at d ');
+                            //console.log('at d ');
                             aHit =  this._ships[4].hit(pos);
                             console.log('aHit: ',aHit);
                             if(aHit){
@@ -849,58 +779,28 @@ class GameBoard {
         }else{
             //swap players 
             //log missed attack to opponents board
+            console.log('calling missedAttack() at id ',id);
             gameOver = this.missedAttack(id);
         }
         //are all sunk
         let sum = this.Hits.reduce((a,b) => a + b, 0);
-        //TEMP to test game over screen
-        //sum = 5;
-        //TEMP
         if(sum === 5){
-            //flag all ships sunk 
-            console.log('this board is: ', this.board);
-//            this.setBoardStatus('win');
-            //proclaim winner
-           // if(this.board === 'self'){ this.setBoardStatus('win');player_1.board.setBoardStatus('lose');console.log('You win');}
-          //  else{ this.setBoardStatus('lose');player_1.board.setBoardStatus('win');console.log('Opponent wins!');}
-
+          //flag all ships sunk 
           if(this.board === 'self'){ 
             this.setBoardStatus('lose');
             player_1.board.setBoardStatus('win');
-            console.log('Opponenet wins!');
-            console.log('displaying game over winner')
             //display game over screen
-     //       if(this.status === 'lose'){
-     //           console.log('displaying game over self win');
-      //          display.doc.showGameOver('self');
-      //      }else{
-      //          if(this.status === 'win'){
-                    console.log('displaying game over oppo win');
-                    display.doc.showGameOver('oppo');
-      //          }
-       //         console.log('displaying game over winner')
-      //      }
+            display.doc.showGameOver('oppo');
           }
           else{ 
             this.setBoardStatus('lose');
             player_0.board.setBoardStatus('win');
-            console.log('You Win!');
             //display game over screen
-    //        if(this.status === 'lose'){
-                console.log('displaying game over self win');
-                display.doc.showGameOver('self');
-    //        }else{
-    //            if(this.status === 'win'){
-    //                console.log('displaying game over oppo win');
-    //                display.doc.showGameOver('oppo');
-    //            }
-    //            console.log('displaying game over winner')
-    //        }
+            display.doc.showGameOver('self');
           }
             //end game
-            console.log('Game Over !')
-            console.log('this board: ', this.board,' this board status: ',this.getBoardStatus());
-            
+            //console.log('Game Over !')
+            //console.log('this board: ', this.board,' this board status: ',this.getBoardStatus()); 
             //exit function
             gameOver =  true;
         }
@@ -913,7 +813,7 @@ class GameBoard {
             if(attackingPlayer === player_1 ){
                 //if player_1 is computer
                 if(players.computer){
-                    console.log('calling computer attack function');
+                    console.log('gb 800 calling computer attack function');
                     gameOver = compAttack();
                 }else{
                     console.log('awaiting human opponents attack');
@@ -937,35 +837,33 @@ class GameBoard {
                     this.status = 'attack';
                     player_0.gameBoard.status = 'underFire';
                     setActivePlayer(player_1);
-                    console.log('players.computer: ', players.computer);
-                    console.log('Active player:',attackingPlayer);
+                   // console.log('players.computer: ', players.computer);
+     //               console.log('Active player:',attackingPlayer);
                     //if player_1 is computer
                     if(players.computer){
-                        console.log('calling computer attack function');
+                        console.log('gB 828 calling computer attack function');
                         gameOver = compAttack();
                     }
                 }
             }
         }
-        console.log('returning gameOver: ',gameOver);
         return gameOver;
      }
 
      //log missedAttack (id ) where id is the attacked grid row col but need to display other board so adjust id
-        missedAttack (id){ 
+    missedAttack (id){ 
             let row;
             let col;
             let gameOver = false;
             id = Number(id);
-            console.log('missed at id, ', id);
+            console.log('at missed attack');
+    
             if(id > 120){
                 id = id-121;
                 row = Math.floor(id/11);
                 col = id % 11;
                 if(player_1.gameBoard.missed[row][col]=== 0){
                     player_1.gameBoard.missed[row][col]= 'X';
-                    //console.log('content of grid[row][col]: ', this.grid[row][col]);
-                    //console.log('id, ', id);
                     display.doc.showMissed(id);
                 }
             }
@@ -973,50 +871,36 @@ class GameBoard {
                 row = Math.floor(id/11);
                 col = id % 11;
                 id = id + 121;
+                console.log('pl_0 missed[r][c]: ',player_0.gameBoard.missed[row][col]);
                 if(player_0.gameBoard.missed[row][col]=== 0){
                     player_0.gameBoard.missed[row][col]= 'X';
-                    console.log('content of grid[row][col]: ', this.grid[row][col]);
-                    console.log('showing x @ player_1 id, ', id);
                     display.doc.showMissed(id);
                 }
             }
-          
-            //console.log('content of grid[row][col]: ', this.grid[row][col]);
-            //console.log('id, ', id);
-
-           // display.doc.showMissed(id);
-            //
+            console.log('attacking player: ',attackingPlayer);
+            console.log('this.board', this.board);
             //change attacker
-            console.log('changing attacker from current:');
-            console.log('board/id: ',this.board, ' status: ', this.status);
-
+            /*
              if(this.board === 'self'){ 
                 //monitoring self under fire
                 if(this.status === 'underFire'){ 
                     this.status = 'attack';
                     player_1.gameBoard.status = 'underFire';
-                    setActivePlayer(player_0);
-                    console.log('players.self attacking: ', players.self);
-                    console.log('players array: ', players);
-                   // gameOver = player_1.gameBoard.receiveAttack();
-                    console.log('awaiting player_0 attack');
-                    display.doc.monitorBoard(player_1.gameBoard);
-                    /*
-                    if(gameOver){
-                        console.log('returning gameOver: ',gameOver);
-                        return true;
-                    }
-                    */    
+           //         setActivePlayer(player_0);
+                    //console.log('players.self attacking: ', players.self);
+                    //console.log('players array: ', players);
+                    //console.log('awaiting player_0 attack');
+                    display.doc.monitorBoard(player_1.gameBoard);    
                 }
             }else{
                 //must be monitoring player_1 under fire
                 if(this.status === 'underFire'){ 
                     this.status = 'attack';
-                    setActivePlayer(player_1);
+           //         setActivePlayer(player_1);
                     player_0.gameBoard.status = 'underFire';
                     console.log('player_1 attacking: ', players.computer);
                     if(players.computer){
-                        console.log('calling computer attack function');
+                        console.log('gB 882 calling computer attack function');
                         gameOver = compAttack();
                         if(gameOver){console.log('returning gameOver: ',gameOver);return true;}
                     }else{
@@ -1024,14 +908,59 @@ class GameBoard {
                     }
                 }
             }
+            */
             return false; //game not over
      }
 
      //receiveTEST
      receiveTEST(id){
-        console.log('receive attack id: ',id);
+        console.log('at receiveTEST receive attack id: ',id);
+     }
 
+     /*
+     addShipsClass () {
+        console.log('adding ships class');
+        let grid = this.grid;
+        let i = 1;
+        let j = 1;
+        let e;
+        let c;
+        
+        for(i=1;i<11;i++){
+            for(j=1;j<11;j++){
+               e = grid[i][j];
+               console.log(typeof(e), e.valueOf());
+               e = e.valueOf();
+               console.log('grid cell i j e: ', i, ' ', j, ' ', e), 'char code', e.charCodeAt(0);
+               console.log("C".valueOf(),' ',"C".charCodeAt(0) );
+               if( (e == "C")||(e === "C" ) || (e === "b")  ||(e === "c")
+                 || (e === "s" ) || (e === "d") ){
+                    id = (i*11)+j;
+                    console.log('id: ',id);
+                    display.doc.addShipClass(id);
+               }else{
+                console.log('false e: ',e);
+               }
+            }
+        }
+        console.log("C".charCodeAt(0) );
+        console.log("b".charCodeAt(0) );
+        console.log("c".charCodeAt(0) );
+        console.log("s".charCodeAt(0) );
+        console.log("d".charCodeAt(0) );
+     }
+        */
+
+     addShipsClass (player) {
+        /*
+        for(let i = 0; i< 5; i++){
+          const  ship = player.gameBoard.ships[i];
+          const shipLocale = ship.getLocale();
+        }
+          */
+         this.setBoardGrid(this._ships);
      }
 
 }
+
 export {GameBoard}

@@ -12,7 +12,7 @@
             4 	    Submarine 	    3
             5 	    Destroyer 	    2
 
-    REMEMBER only test object’s public interface. 
+    only test object’s public interface. 
              Only methods or properties that are used outside of the ‘ship’ object need unit tests.
 
     Ships should have:
@@ -33,6 +33,7 @@ class Ship {
             //return new Ship:
             //return new Ship(shipsData);
         }else{
+            console.log(shipData);
             this.type = shipData.type;
             this.location = shipData.location;
             this.length = shipData.length;
@@ -54,15 +55,15 @@ class Ship {
         let a = Array.from(this.shipHitPositions);
         console.log('a: ',a);
         let found = this.checkSub(a,pos);
-        console.log('found: ',found);
+        //console.log('found: ',found);
         //check for hit if not already found
         if(!found) {
             //check if a hit
-            //if (this.shipLocale.join(',').includes(pos.join(','))){
             a = this.shipLocale;
             let hit = this.checkSub(a,pos);
             if(hit){
                 //increment hits
+                console.log('hit at ',pos);
                 this.hits++;
                 //save the hit
                 this.shipHitPositions = this.shipHitPositions + pos;
@@ -97,13 +98,9 @@ class Ship {
 
     setLocale () {
         //horizontal or vertical in grid
-        let row = this.location[0];
-        //let row = this.type.location[0];
-       // pickShips.classList.remove('hidden');   
+        let row = this.location[0];   
         let col = this.location[1];
-        //let col = this.type.location[1];
         let orientation = this.location[2];
-        //let orientation = this.type.location[2];
         let locality_row = [];
         let locality_col = [];
         let locality = [];
@@ -124,7 +121,7 @@ class Ship {
         for(let i = 0; i < this.length; i++){
             locality[i] = [locality_row[i], locality_col[i]];
         }
-       // console.log('shipLocality is: ' ,locality);
+       
         return locality;
     }
 
@@ -135,7 +132,6 @@ class Ship {
 
     // check for existence of sub array sub in array a returns true or false
     checkSub(a, sub) {
-        console.log ('a: ',a);
         return a.join(',').includes(sub.join(','));
     }
 

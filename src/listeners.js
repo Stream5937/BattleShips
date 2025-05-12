@@ -32,7 +32,6 @@ const comp_btnListenerObj = {
         //player instantiated at index.js
         //flag can stop waiting for player selection
         playerSelected();
-        
         player_1.gameBoard.status = 'random';
         //set the player shipsData
         player_1.setShipData(player_1.gameBoard.randomiseShips());
@@ -43,10 +42,6 @@ const comp_btnListenerObj = {
         player_1.gridUpdate();
         let setDiv = document.querySelector('.computerSet');
         setDiv.classList.remove('hidden');
-        /*
-        const attack= document.querySelector('.attack1');
-        attack.classList.remove('hidden');
-        */
         //set gameBoard status to eventually be under attack assumes player self starts
         player_1.gameBoard.status = 'underFire';
         return true;
@@ -106,39 +101,24 @@ const confirm0_btnListenerObj = {
             let pickShips0 = document.querySelector(".pickShips0");
             pickShips0.classList.remove('hidden');
             player_0.gameBoard.status = 'place';
-            //#####
-          //  player_0.gameBoard.initialiseBoardGrid();
-           // display.doc.gridSetUp(player_0.gameBoard);
-           // player_0.gameBoard.renderGameBoardContent();
-          //  display.doc.monitorShipPlacement(player_0);
-            //########
         }else{
             player_0.gameBoard.status = 'random';
             //set the player shipsData
             player_0.setShipData(player_0.gameBoard.randomiseShips());
             player_0.gameBoard.initialiseBoardGrid();
-            // player_0.gameboard.grid=player_0.gameBoard.setBoardGrid(player_0.getShipData());
             //update the board grid from the shipsData
             player_0.gridUpdate();
             const attack= document.querySelector('.attack0');
             attack.classList.remove('hidden');
             //display the player_1 board for set  up if 'human'
             if(player_1.name === 'human'){
-                //let ships1 = document.querySelector('.pickShips1');
                 let ships1 = document.querySelector('.play1'); 
                 ships1.classList.remove('hidden');
             }
             // ###############    MOVE TO ALL SHIPS PLACED BUTTON ??  as well ################
             player_0.gameBoard.status = 'attack';
             player_1.gameBoard.status = 'underFire';
-            console.log('boardStatus-0 reset to: ',player_0.gameBoard.status);
-            console.log('boardStatus-1 reset to: ',player_1.gameBoard.status);
         }
-        console.log('boardStatus-0: ',player_0.gameBoard.status);
-        //set board status to attack to flag start game
-        /**/ 
-        
-        /**/
     }
 }
 
@@ -156,7 +136,6 @@ const confirm1_btnListenerObj = {
             pickShips1.classList.remove('hidden');
             player_1.gameBoard.status = 'place';
             //display the player_1 board for set  up if 'human'
-            console.log('player: ',player_1.name);
             if(player_1.name === 'human'){
                 player_1.gameBoard.initialiseBoardGrid();
                 //display the empty grid
@@ -173,20 +152,7 @@ const confirm1_btnListenerObj = {
             player_1.gameBoard.initialiseBoardGrid();
             display.doc.gridSetUp(player_1.gameBoard);      //####
             //update the board grid from the shipsData
-            player_1.gridUpdate();
-            /* decide how to choose first player
-            const attack= document.querySelector('.attack1');
-            attack.classList.remove('hidden');
-            */
-           //#####
-           // player_1.gameBoard.status = 'random';
-           //set the player shipsData
-           //  player_1.setShipData(player_1.gameBoard.randomiseShips());
-           //  
-            
-            //update the board grid from the shipsData
-          //  player_1.gridUpdate();
-          //  let setDiv = document.querySelector('.computerSet');
+            player_1.gridUpdate();   
             let setDiv = document.querySelector('.humanSet');
             setDiv.classList.remove('hidden');
 
@@ -194,14 +160,8 @@ const confirm1_btnListenerObj = {
             //set board status to attack to flag start game
             player_0.gameBoard.status = 'attack';
             player_1.gameBoard.status = 'underFire';
-            console.log('boardStatus-1 reset to: ',player_1.gameBoard.status);
-
-           //#####
+            //#####
         }
-        console.log('boardStatus-1: ',player_1.gameBoard.status);
-        /**/
-        
-        /**/
     }
 }
 
@@ -214,21 +174,17 @@ function confirmSetShipsMethod(str) {
     var radioButtons = document.getElementsByName(elName);
     for(var i = 0; i < radioButtons.length; i++)
         {
-        console.log(`button ${i} : `);
         if(radioButtons[i].checked === true)
         {
             val = radioButtons[i].value;
-            console.log("selected value: " + val + "!");
             switch (val) {
                 case 'set' : {
                     //implement provision for user to set gameboard ship positions manually
-                    console.log('setting ship positions manually');
                     placeMethod = 'place';
                     break;
                 }
                 case 'rnd' : {
                     //implement provision for user to set gameboard ship positions randomly
-                    console.log('setting ship positions randomly');
                     placeMethod = 'random';
                     break;
                 }

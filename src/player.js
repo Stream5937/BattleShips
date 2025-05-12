@@ -11,11 +11,9 @@ class Player {
             //return new Player(player);
         }else{
             this.name = player;
-            //console.log('name: ',this.name);
             this.shipPlacement= null;
             this.shipsData = null;
-           // let board = {id: player, status: 'setup'}
-           let board = {'id': player, 'status': 'setup'};
+            let board = {'id': player, 'status': 'setup'};
             this.gameBoard = new GameBoard(board);
         }
     }
@@ -41,8 +39,6 @@ class Player {
         this.gameBoard.setBoardGrid(this.shipsData);
         this.gameBoard.renderGameBoardContent();
     }
-
-
 }
 
 export {Player}

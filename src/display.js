@@ -1,7 +1,6 @@
 //display.js
 import {Dom_fns} from './dom-fns.js';
 
-
 //A Display Controller class
 class Display {
 
@@ -17,11 +16,6 @@ class Display {
             //return new Display(game_instance);
         }else{
             //for the display
-            /*----------------------  event listeners  --------------------------------*/
-            /*----------------------  button  actions  --------------------------------*/
-            /*----------------------  form event listener  ----------------------------*/
-            /*----------------------  projects event listener  ------------------------*/
-            
             this.doc= new Dom_fns(document);           //a new dom_fns instance
           //  this.renderGameBoard(0);
           //  this.renderGameBoard(1);
@@ -34,6 +28,5 @@ class Display {
     }
 
 }
-
 
 export {Display}
