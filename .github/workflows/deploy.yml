@@ -1,0 +1,37 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Copy static files to public folder
+        run: |
+          mkdir public
+          cp src/index.html public/
+          cp src/styles.css public/
+          cp src/index.js public/
+          # Add more cp commands if you have more files or folders
+          cp src/computer.js public/
+          cp src/display.js public/
+          cp src/dom-fns.js public/
+          cp src/gameboard.js public/
+          cp src/favicon.png public/
+          cp src/listeners.js public/
+          cp src/player.js public/
+          cp src/ship.js public/
+
+      - name: Deploy to gh-pages branch
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          publish_branch: gh-pages
