@@ -7,7 +7,8 @@ module.exports = {
   entry: './src/index.js',
   output: {
     filename: '[name].[contenthash].js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    clean:false
   },
   plugins: [
     new CleanWebpackPlugin(),

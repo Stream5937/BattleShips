@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--stylesheet href="./style.css" ></stylesheet-->
+    <!--stylesheet loaded via webpack loader -->
+    <!--favicon loaded using webpack favicons-webpack-plugin from logo.png-->
+    <link rel="icon" type="mage/png" href="favicon.png">
+    <title>Battle Ship</title>
+  <link rel="icon" href="assets/favicon.png"><script defer src="main.de5f6ba18de9162fe518.js"></script></head>
+  <body>
+    <!-- Start Screen code starts here -->
+    <div class="start">
+      <div class = 'title'>
+        <h1>
+          BATTLE SHIPS
+        </h1>
+      </div>
+      <div class= 'buttons'>
+        <div class='btn-left'>
+          <button id = 'human'>
+            Play a human ?
+          </button>
+        </div>
+        <div class = 'btn-right'>
+          <button id = 'computer'>
+            Play computer ?
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Start Screen code ends here -->
+    <!-- Main display-->
+    <div id="container" class="container hidden">
+      <div class="header">
+        BATTLE SHIPS
+      </div>
+      <div class="game_container" >
+        <div class="left">
+            <div class="player0">
+              PLAYER (0) MY BATTLE SHIPS LAYOUT
+            </div>
+            <div class="sketch0" >
+              <!--board 0 here -->
+            </div>
+        </div>
+        <div class="right">
+          <div class ="player1">
+            PLAYER (1) BATTLE ZONE<br>(Opponents ships hidden until hit)
+            <div class= "computerSet hidden"><br><span class='highlight'>Computer's ships are set</span></div>
+            <div class= "humanSet hidden"><br><span class='highlight'>Human player's ships are set</span></div>
+          </div>
+          <div class="sketch1">
+            <!--board 1 here -->
+          </div>
+        </div>
+      </div>
+      <div class ="footer">
+       <div class= "play0">Choose how you set ship placement:
+        <div class="setShips0 ">
+	       <input class= 'rad-btn-left' type = 'radio' id="set0" name = 'placeShips0' value = 'set' >
+	       <label class= "rblabel-left" for = 'set'>PLACE</label>
+	       <input class= 'rad-btn-right' type = 'radio' id="rnd0" name = 'placeShips0' value = 'rnd' >
+	       <label class= "rblabel-right" for = 'rnd'>RANDOM</label>
+        </div>
+        <button class= "radconfirm0 hidden" id="confirm0" >CONFIRM</button>
+      </div>
+        <div class="pickShips0 hidden">
+            <div class="pickLabel">Place ships - select ship button then click grid cells (number)</div>
+            <button class="carrier" id="C">Carrier (5)</button >
+            <button class="battleship" id="b">Battleship (4)</button >
+            <button class="cruiser" id="c">Cruiser (3)</button >
+            <button class="submarine" id="s">Submarine (3)</button >
+            <button class="destroyer" id="d">Destroyer (2)</button >
+            <button class="donePlacing0 hidden" id="D">All Ships Placed</button >
+        </div>
+        <div class="attack0 hidden">
+            Player 0 to play attacking move - Click on Player 1 grid to attack
+        </div> 
+        <div class= "play1 hidden">Choose how opponent sets ship placement:
+          <div class="setShips1">
+           <input class= 'rad-btn-left' type = 'radio' id="set1" name = 'placeShips1' value = 'set' >
+           <label class= "rblabel-left" for = 'set'>PLACE</label>
+           <input class= 'rad-btn-right' type = 'radio' id="rnd1" name = 'placeShips1' value = 'rnd' >
+           <label class= "rblabel-right" for = 'rnd'>RANDOM</label>
+          </div>
+          <button class= "radconfirm1 hidden" id="confirm1" >CONFIRM</button>
+        </div>
+          <div class="pickShips1 hidden">
+              <div class="pickLabel">Place ships - select ship button then click grid cells (number)</div>
+              <button class="carrier" id="C1">Carrier (5)</button >
+              <button class="battleship" id="b1">Battleship (4)</button >
+              <button class="cruiser" id="c1">Cruiser (3)</button >
+              <button class="submarine" id="s1">Submarine (3)</button >
+              <button class="destroyer" id="d1">Destroyer (2)</button >
+              <button class="donePlacing1 hidden" id="D1">All Ships Placed</button >
+          </div>
+          <div class="attack1 hidden">
+              Player 1 to play attacking move - Click on Player 0 grid to attack
+          </div>
+      </div>
+      
+    </div>
+     <!-- Game Over Screen code starts here -->
+     <div class="GameOver hidden">
+      <div class = 'title'>
+        <h1>
+          G A M E  -  O V E R !
+        </h1>
+      </div>
+      <div class= 'player_result'>
+        <div class='selfWin hidden'>
+          <button id = 'self'>
+            Y O U - W I N !
+          </button>
+        </div>
+        <div class = 'oppoWin hidden '>
+          <button id = 'oppo'>
+            O P P O N E N T   W I N S!
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- Start Screen code ends here -->
+    <!--Scripts-->
+    <!-- No script link because using webpack-dev-server instead of webpack -->
+  </body>
+</html>
