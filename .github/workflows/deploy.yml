@@ -15,19 +15,11 @@ jobs:
 
       - name: Copy static files to public folder
         run: |
-          mkdir public
+          mkdir -p public
           cp src/index.html public/
           cp src/styles.css public/
-          cp src/index.js public/
-          # Add more cp commands if you have more files or folders
-          cp src/computer.js public/
-          cp src/display.js public/
-          cp src/dom-fns.js public/
-          cp src/gameboard.js public/
           cp src/favicon.png public/
-          cp src/listeners.js public/
-          cp src/player.js public/
-          cp src/ship.js public/
+          cp src/*.js public/
 
       - name: Deploy to gh-pages branch
         uses: peaceiris/actions-gh-pages@v4
