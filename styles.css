@@ -1,0 +1,558 @@
+/* BattleShips style.css	*/
+/*----------------------------------------reset-------------------------------------------------------------*/
+* {
+    margin: 0px;
+    padding: 0px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    box-sizing: border-box;
+}
+
+/*--------------------------------colour scheme  1 lighter to 4 darker ------------------------------------*/
+/* using variables e.g.
+:root {
+  --blue: #1e90ff;
+  --white: #ffffff;
+}
+body { background-color: var(--blue); }
+*/
+
+:root {
+  --col_1  : #bbe4e9;   /* lightest*/
+  --col_2  : #79c2d0;   /* lighter */
+  --col_3  : #53a8b6;   /* darker  */
+  --col_4  : #5585b5;   /* darkest */
+}
+
+.col-1 {
+  background-color: var(--col_1);
+}
+
+.col-2 {
+  background-color: var(--col_2);
+}
+
+.col-3 {
+  background-color: var(--col_3);
+}
+
+.col-4 {
+  background-color: var(--col_4);;
+}
+
+body {
+  overflow: hidden; /* Hide scrollbars */
+  width: 100vw;
+  height: 100vh;
+}
+
+/*-------------------------text ---------------------------------------------------------------*/
+/*input cursor
+.cursor {
+  background-color: rgb(15 23 42);
+  width: 0.25rem;
+  height: 2rem;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+      background-color: transparent;
+  }
+  50% {
+      background-color: rgb(15 23 42);
+  }
+}
+*/
+/*----text-----*/
+h1 {
+  font-size: 6rem;
+  align-content: center;
+  color: var( --col_2);
+  width:fit-content;
+  height:auto;
+  border: none;
+}
+
+h2 {
+  font-size: 2rem;
+  align-content: center;
+}
+
+/*----------------------------------------start screen-----------------------------------------------------*/
+.start{  
+  display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+    height:100%;
+    background-image: url('../assets/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color:white;
+  }
+
+  .title{
+    display: grid;
+    grid-area: 1/1/2/2;
+    width: 100%;
+    height:100%;
+    align-items: center;
+    justify-items: center;
+    border: none;
+  }
+
+  .buttons {
+    display: grid;
+    grid-area: 2/1/3/2;
+    width: 100%;
+    height:100%;
+    align-items: center;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows:1fr 1fr 1fr;
+    border: none;
+  }
+
+  button {
+    background-color: var(--col_2);
+    color: black;
+    width: 100%;
+    height:100%;
+  }
+
+  .btn-left {
+    display:grid;
+    grid-area: 2/2/3/3;
+    width: 80%;
+    height:60%;
+    border: none;
+  }
+
+  .btn-right {
+    display: grid;
+    grid-area: 2/5/3/6;
+    width: 80%;
+    height:60%;
+    border: none;
+  }
+  /*------------------------------------Game Play----------------------------------------------*/
+  
+  .container {
+    height:100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 10fr 1fr;
+    color: blue;
+  }
+
+  .header {
+    display:grid;
+    grid-area: 1/1/2/2;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--col_4);
+    color:black;
+  }
+
+  .game_container {
+    display:grid;
+    grid-area: 2/1/3/2;
+    grid-template-rows: 1fr;
+    grid-template-columns: 1fr 1fr;
+    /*background-color: dimgrey;*/
+    color: black;
+  }
+
+  .left {
+    display: grid;
+    grid-area: 1/1/2/2;
+    grid-template-rows: 1fr 8fr;
+    grid-template-columns: 1fr; 
+    justify-content: center;
+    align-items: center;
+    background-color: var(--col_3);
+    color: black;
+  }
+
+  .right {
+    display: grid;
+    grid-area: 1/2/2/3;
+    grid-template-rows: 1fr 8fr;
+    grid-template-columns: 1fr;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--col_2);
+    color: black;
+  }
+
+  .player0,
+  .player1 {
+    display: grid;
+    grid-area: 1/1/2/2;
+    justify-self: center;
+    align-items: center;
+  }
+  
+  .sketch0, 
+  .sketch1 {
+    display: grid;
+    grid-area: 2/1/3/2;
+    justify-self: center;
+    align-items: center;
+    min-width: fit-content;
+    min-height: fit-content;
+}
+
+.rowContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    min-width: fit-content;
+    min-height: fit-content;
+}
+
+.gridDiv {
+    display:flex;
+    flex-direction: column;
+     
+    border-style: solid;
+    border-width: 1px;
+    border-color: blue; 
+}
+
+.sketch0 .gridDiv{
+  background-color: cyan; 
+}
+
+.sketch1 .gridDiv{
+  background-color: lightyellow; 
+}
+
+.sketch1 .gridDiv.hit{
+  color: black;
+  background-color: orange; 
+}
+
+.sketch1 .gridDiv.sunk {
+  color: black;
+  background-color: green;
+}
+
+.sketch0 .ship,
+.highlight {
+    background-color: lightgreen;
+}
+
+.noHighlight{
+    background-color: cyan;
+}
+
+
+/*-------------------------------------- footer -------------------------------------------------*/
+.footer {
+  display:grid;
+  grid-area: 3/1/4/2;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  color: white;
+  background-color: var(--col_4);
+}
+
+
+.play0{
+  display: grid;
+  grid-area: 1/1/2/2;
+  grid-template-columns: 2.0fr 1.5fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  color: black;
+  background-color: var(--col_4);
+}  
+
+.play1 {
+  display: grid;
+  grid-area: 1/2/2/3;
+  grid-template-columns: 2.0fr 1.5fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  color: black;
+  background-color: var(--col_4);
+
+}
+
+.setShips0,
+.setShips1  {
+  display: grid;
+  grid-area: 2/1/3/2;
+  grid-template-columns: 0.5fr 1.5fr 0.5fr 1.5fr 0.5fr;
+  grid-template-rows: 1fr;
+  color: black;
+  background-color: var(--col_4);
+}
+
+
+.rblabel-left {
+  display: grid;
+  grid-area: 1/2/2/3;
+  justify-self: right;
+  margin: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: blue;
+  background-color: var(--col_3);
+}
+
+.rad-btn-left {
+  display: grid;
+  grid-area: 1/3/2/4;
+  width: 20px;
+  margin-left: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: blue;
+}
+
+.rblabel-right {
+  display: grid;
+  grid-area: 1/4/2/5;
+  justify-self: right;
+  margin: 5px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: blue;
+  background-color: var(--col_3);
+}
+
+.rad-btn-right {
+  display: grid;
+  grid-area: 1/5/2/6;
+  margin: 5px;
+  margin-left: 10px;
+  border-style: solid;
+  border-width: 1px;
+  border-color: blue;
+}
+
+.radconfirm0,
+.radconfirm1 {
+  display: grid;
+  grid-area: 2/2/3/3;
+  justify-self: center;
+  align-self: center;
+  width: 40%;
+  height: 100%;
+  margin-right: 25%;
+  padding-top: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: blue;
+  color: black;
+  background-color: var(--col_3);
+}
+
+.pickShips0 {
+  display: grid;
+  grid-area: 1/1/2/2;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  color: black;
+  background-color: var(--col_4);
+  height: 100%;
+  width: 100%;
+}
+
+.pickShips1 {
+  display: grid;
+  grid-area: 1/2/2/3;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  color: black;
+  background-color: var(--col_4);
+  height: 100%;
+  width: 100%;
+}
+
+.pickLabel {
+  display:grid;
+  grid-area: 1/1/2/6;
+  justify-content: center;
+  background-color: var(--col_4);
+  color: black;
+}
+
+.carrier {
+  display:grid;
+  grid-area: 2/1/3/2;
+  justify-content: center;
+  background-color: var(--col_2);
+  height: 100%;
+  width: 100%;
+  margin: 0px 5px 0px 0px;
+  border-color: blue;
+  border-width:1px;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+.battleship {
+  display:grid;
+  grid-area: 2/2/3/3;
+  justify-content: center;
+  background-color: var(--col_3);
+  height: 100%;
+  width: 100%;
+  margin: 0px 5px 0px 0px;
+  border-color: blue;
+  border-width:1px;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+.cruiser {
+  display:grid;
+  grid-area: 2/3/3/4;
+  justify-content: center;
+  background-color: var(--col_2);
+  height: 100%;
+  width: 100%;
+  margin: 0px 5px 0px 0px;
+  border-color: blue;
+  border-width:1px;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+.submarine {
+  display:grid;
+  grid-area: 2/4/3/5;
+  justify-content: center;
+  background-color: var(--col_3);
+  height: 100%;
+  width: 100%;
+  margin: 0px 5px 0px 0px;
+  border-color: blue;
+  border-width:1px;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+.destroyer {
+  display:grid;
+  grid-area: 2/5/3/6;
+  justify-content: center;
+  background-color: var(--col_2);
+  height: 100%;
+  width: 100%;
+  margin: 0px 5px 0px 0px;
+  border-color: blue;
+  border-width:1px;
+  border-style: solid;
+  border-radius: 5px;
+}
+.donePlacing0,
+.donePlacing1 {
+  display:grid;
+  grid-area: 3/1/4/6;
+  justify-self: center;
+  justify-content: center;
+  background-color: lightgreen;
+  height: 100%;
+  width: fit-content;
+  margin: 0px 5px 0px 0px;
+  border-color: blue;
+  border-width:1px;
+  border-style: solid;
+  border-radius: 5px;
+}
+
+.btnHighlight_1 {
+  background-color: green;
+}
+
+.btnHighlight {
+  background-color: red;
+}
+
+.noBtnHighlight_2{
+  background-color:var(--col_2);
+}
+
+.noBtnHighlight_3{
+  background-color:var(--col_3);
+}
+
+
+.sketch0 .gridDiv.missed {
+ /* background-color:var(--col_2);*/
+ background-color : lightgrey;
+}
+
+.sketch1 .gridDiv.missed {
+  /* background-color:var(--col_2);*/
+  background-color : grey;
+ }
+
+.GameOver {
+  display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows:1fr 1fr;
+    align-items: center;
+    justify-items: center;
+    width: 100%;
+    height:100%;
+    background-image: url('../assets/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color:white;
+}
+
+.player_result {
+  width: 400px;
+  height: 300px;
+}
+
+#self,
+#oppo {
+  font-size: 2rem;
+  justify-content: center;
+  align-content: center;
+  color: black;
+  width:fit-content;
+  height:auto;
+  border: none;
+}
+
+.selfWin {
+  background-color: var(--col_2);
+    color: black;
+    width: 200%;
+    height:100%;
+    display:grid;
+    grid-area: 2/2/3/3;
+    width: 80%;
+    height:60%;
+    border: none;
+    justify-content: center;
+    align-content: center;
+}
+
+.oppoWin{
+  background-color: var(--col_2);
+    color: black;
+    width: 200%;
+    height:100%;
+    display:grid;
+    grid-area: 2/5/3/6;
+    width: 80%;
+    height:60%;
+    border: none;
+    justify-content: center;
+    align-content: center;
+}
+
+.hidden {
+  display: none;
+}
